@@ -1,0 +1,6 @@
+mutation AddNeedsOwner($repository_id: ID!, $topics: [String!]!) {
+  updateTopics(input: {repositoryId: $repository_id, topicNames: $topics}) {
+    clientMutationId
+    invalidTopicNames
+  }
+}

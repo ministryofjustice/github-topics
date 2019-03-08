@@ -1,0 +1,17 @@
+#!/bin/bash
+for FILE in $(find results -name '*.json'); do
+  echo -n "Checking $FILE ... "
+
+  tagged="$(jq '.topics | if (index("laa-needs-owner") or index("laa-get-access") or index("laa-get-paid") or index("laa-apply")) then "tagged" else "not-tagged" end' < $FILE)"
+
+  if [ "$tagged" == '"tagged"' ]; then
+    echo "nothing to do ✅"
+  else
+    echo -n "tagging ⏳... "
+    variables="$(jq -c '.topics |= .+ ["laa-needs-owner"]' < $FILE)"
+    data="$(jq -csR '{ "query": ., "variables": '$variables' }' update_topics)"
+    curl --fail -sSH "Authorization: bearer $GITHUB_TOKEN" -X POST \
+      --data "$data" https://api.github.com/graphql | tee /dev/tty | jq -e '.errors | length == 0' >/dev/null \
+      && echo "✅" || echo "🚫"
+  fi
+done
