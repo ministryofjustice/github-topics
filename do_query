@@ -2,7 +2,10 @@
 cat repos | while read REPOSITORY; do
   data="$(jq -csR '{ "query": ., "variables": {"name": "'$REPOSITORY'"} }' query)"
 
+  echo -n "Processing $REPOSITORY ... "
   curl -sSH "Authorization: bearer $GITHUB_TOKEN" -X POST \
     --data "$data" https://api.github.com/graphql \
-    | jq '.data.organization.repository | { repository: .name, topics: [.repositoryTopics.nodes[] | .topic.name] | sort }'
+    | jq '.data.organization.repository | { repository_id: .id, repository: .name, topics: [.repositoryTopics.nodes[] | .topic.name] | sort }' \
+    > results/$REPOSITORY.json \
+    && echo "✅" || echo "🚫"
 done

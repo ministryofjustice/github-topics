@@ -1,6 +1,7 @@
 query LAARepos($name: String!) {
   organization(login: "ministryofjustice") {
     repository(name: $name) {
+      id
       name
       repositoryTopics(first: 20) {
         nodes {
