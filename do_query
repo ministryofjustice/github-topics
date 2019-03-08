@@ -1,0 +1,8 @@
+#!/bin/bash -e
+cat repos | while read REPOSITORY; do
+  data="$(jq -csR '{ "query": ., "variables": {"name": "'$REPOSITORY'"} }' query)"
+
+  curl -sSH "Authorization: bearer $GITHUB_TOKEN" -X POST \
+    --data "$data" https://api.github.com/graphql \
+    | jq '.data.organization.repository | { repository: .name, topics: [.repositoryTopics.nodes[] | .topic.name] | sort }'
+done
