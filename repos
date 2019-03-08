@@ -1,6 +1,5 @@
-laa-cwa-feature-tests
-adp_api_client
 adp-prototype
+adp_api_client
 atp-laa-crime-means-assesment
 cccd-maintenance-page
 CCCD-prototype-kit
@@ -8,17 +7,16 @@ CCCD-prototype-kit-ext
 cccd-spike-sns
 cclf
 ccr
+cla-prototype
 cla_backend
 cla_common
 cla_frontend
 cla_public
 cla_security
-cla-prototype
 Claim-for-Crown-Court-Defence
 fala
 fala-deploy
 GreatIdeas
-laa_dashboard
 laa-6dg-infrastructure
 laa-apex
 laa-apply-backend
@@ -52,6 +50,7 @@ laa-cla-e2e-tests
 laa-common-platform-connector
 laa-commons
 laa-cwa
+laa-cwa-feature-tests
 laa-data-anonymisation
 laa-data-migration-ddl
 laa-decision-automation-model
@@ -100,5 +99,6 @@ laa-service-status-dashboard
 laa-supplier-api
 laa-test-automation
 laa-tmp-nolasa
+laa_dashboard
 laalaa-deploy
 sentencing-guidelines-api-prototype
