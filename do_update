@@ -8,8 +8,10 @@ for FILE in $(find results -name '*.json'); do
     echo "nothing to do ✅"
   else
     echo -n "tagging ⏳... "
+
     variables="$(jq -c '.topics |= .+ ["laa-needs-owner"]' < $FILE)"
-    data="$(jq -csR '{ "query": ., "variables": '$variables' }' update_topics)"
+    data="$(jq -csR '{ "query": ., "variables": '$variables' }' graphql/update_topics)"
+
     curl --fail -sSH "Authorization: bearer $GITHUB_TOKEN" -X POST \
       --data "$data" https://api.github.com/graphql | tee /dev/tty | jq -e '.errors | length == 0' >/dev/null \
       && echo "✅" || echo "🚫"

@@ -1,6 +1,6 @@
 #!/bin/bash -e
 cat repos | while read REPOSITORY; do
-  data="$(jq -csR '{ "query": ., "variables": {"name": "'$REPOSITORY'"} }' query)"
+  data="$(jq -csR '{ "query": ., "variables": {"name": "'$REPOSITORY'"} }' graphql/query)"
 
   echo -n "Processing $REPOSITORY ... "
   curl -sSH "Authorization: bearer $GITHUB_TOKEN" -X POST \
